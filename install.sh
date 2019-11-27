@@ -20,12 +20,12 @@ elif [[ $sys_bit == "x86_64" ]]; then
 	v2ray_bit="64"
 else
 	echo -e " 
-	哈哈……这个 ${red}辣鸡脚本${none} 不支持你的系统。 ${yellow}(-_-) ${none}
+	哈哈……这个 ${red}脚本${none} 不支持你的系统。 ${yellow}(-_-) ${none}
 	备注: 仅支持 Ubuntu 16+ / Debian 8+ / CentOS 7+ 系统
 	" && exit 1
 fi
 
-# 笨笨的检测方法
+# 检测是否是centos , redhat linux ?
 if [[ -f /usr/bin/apt-get || -f /usr/bin/yum ]] && [[ -f /bin/systemctl ]]; then
 
 	if [[ -f /usr/bin/yum ]]; then
@@ -37,7 +37,7 @@ if [[ -f /usr/bin/apt-get || -f /usr/bin/yum ]] && [[ -f /bin/systemctl ]]; then
 else
 
 	echo -e " 
-	哈哈……这个 ${red}辣鸡脚本${none} 不支持你的系统。 ${yellow}(-_-) ${none}
+	哈哈……这个 ${red}脚本${none} 不支持你的系统。 ${yellow}(-_-) ${none}
 	备注: 仅支持 Ubuntu 16+ / Debian 8+ / CentOS 7+ 系统
 	" && exit 1
 
@@ -46,8 +46,8 @@ fi
 uuid=$(cat /proc/sys/kernel/random/uuid)
 old_id="e55c8d17-2cf3-b21a-bcf1-eeacb011ed79"
 v2ray_server_config="/etc/v2ray/config.json"
-v2ray_client_config="/etc/v2ray/233blog_v2ray_config.json"
-backup="/etc/v2ray/233blog_v2ray_backup.conf"
+v2ray_client_config="/etc/v2ray/lighacker_v2ray_config.json"
+backup="/etc/v2ray/lighacker_v2ray_backup.conf"
 _v2ray_sh="/usr/local/sbin/v2ray"
 systemd=true
 # _test=true
@@ -98,7 +98,7 @@ ciphers=(
 )
 
 _load() {
-	local _dir="/etc/v2ray/233boy/v2ray/src/"
+	local _dir="/etc/v2ray/lighacker/v2ray/src/"
 	. "${_dir}$@"
 }
 
@@ -282,7 +282,7 @@ tls_config() {
 	while :; do
 		echo
 		echo -e "请输入一个 $magenta正确的域名$none，一定一定一定要正确，不！能！出！错！"
-		read -p "(例如：233blog.com): " domain
+		read -p "(例如：b.lighacker.com): " domain
 		[ -z "$domain" ] && error && continue
 		echo
 		echo
@@ -403,14 +403,14 @@ path_config_ask() {
 path_config() {
 	echo
 	while :; do
-		echo -e "请输入想要 ${magenta}用来分流的路径$none , 例如 /233blog , 那么只需要输入 233blog 即可"
-		read -p "$(echo -e "(默认: [${cyan}233blog$none]):")" path
-		[[ -z $path ]] && path="233blog"
+		echo -e "请输入想要 ${magenta}用来分流的路径$none , 例如 /lighacker , 那么只需要输入 lighacker 即可"
+		read -p "$(echo -e "(默认: [${cyan}lighacker$none]):")" path
+		[[ -z $path ]] && path="lighacker"
 
 		case $path in
 		*[/$]*)
 			echo
-			echo -e " 由于这个脚本太辣鸡了..所以分流的路径不能包含$red / $none或$red $ $none这两个符号.... "
+			echo -e " 由于这个脚本太了..所以分流的路径不能包含$red / $none或$red $ $none这两个符号.... "
 			echo
 			error
 			;;
@@ -441,7 +441,7 @@ proxy_site_config() {
 		case $proxy_site in
 		*[#$]*)
 			echo
-			echo -e " 由于这个脚本太辣鸡了..所以伪装的网址不能包含$red # $none或$red $ $none这两个符号.... "
+			echo -e " 由于这个脚本太了..所以伪装的网址不能包含$red # $none或$red $ $none这两个符号.... "
 			echo
 			error
 			;;
@@ -522,7 +522,7 @@ shadowsocks_port_config() {
 		case $ssport in
 		$v2ray_port)
 			echo
-			echo " 不能和 V2Ray 端口一毛一样...."
+			echo " 不能和 V2Ray 端口一摸一样...."
 			error
 			;;
 		[1-9] | [1-9][0-9] | [1-9][0-9][0-9] | [1-9][0-9][0-9][0-9] | [1-5][0-9][0-9][0-9][0-9] | 6[0-4][0-9][0-9][0-9] | 65[0-4][0-9][0-9] | 655[0-3][0-5])
@@ -567,12 +567,12 @@ shadowsocks_password_config() {
 
 	while :; do
 		echo -e "请输入 "$yellow"Shadowsocks"$none" 密码"
-		read -p "$(echo -e "(默认密码: ${cyan}233blog.com$none)"): " sspass
-		[ -z "$sspass" ] && sspass="233blog.com"
+		read -p "$(echo -e "(默认密码: ${cyan}b.lighacker.com$none)"): " sspass
+		[ -z "$sspass" ] && sspass="b.lighacker.com"
 		case $sspass in
 		*[/$]*)
 			echo
-			echo -e " 由于这个脚本太辣鸡了..所以密码不能包含$red / $none或$red $ $none这两个符号.... "
+			echo -e " 由于这个脚本太了..所以密码不能包含$red / $none或$red $ $none这两个符号.... "
 			echo
 			error
 			;;
@@ -624,7 +624,7 @@ shadowsocks_ciphers_config() {
 install_info() {
 	clear
 	echo
-	echo " ....准备安装了咯..看看有毛有配置正确了..."
+	echo " ....准备安装了咯..看看有没有配置正确了..."
 	echo
 	echo "---------- 安装信息 -------------"
 	echo
@@ -708,20 +708,123 @@ domain_check() {
 }
 
 install_caddy() {
-	# download caddy file then install
-	_load download-caddy.sh
-	_download_caddy_file
-	_install_caddy_service
+	local caddy_tmp="/tmp/install_caddy/"
+	local caddy_tmp_file="/tmp/install_caddy/caddy.tar.gz"
+	if [[ $sys_bit == "i386" || $sys_bit == "i686" ]]; then
+		local caddy_download_link="https://caddyserver.com/download/linux/386?license=personal"
+	elif [[ $sys_bit == "x86_64" ]]; then
+		local caddy_download_link="https://caddyserver.com/download/linux/amd64?license=personal"
+	else
+		echo -e "$red 自动安装 Caddy 失败！不支持你的系统。$none" && exit 1
+	fi
+
+	mkdir -p $caddy_tmp
+
+	if ! wget --no-check-certificate -O "$caddy_tmp_file" $caddy_download_link; then
+		echo -e "$red 下载 Caddy 失败！$none" && exit 1
+	fi
+
+	tar zxf $caddy_tmp_file -C $caddy_tmp
+	cp -f ${caddy_tmp}caddy /usr/local/bin/
+
+	if [[ ! -f /usr/local/bin/caddy ]]; then
+		echo -e "$red 安装 Caddy 出错！" && exit 1
+	fi
+
+	setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/caddy
+
+	if [[ $systemd ]]; then
+		cp -f ${caddy_tmp}init/linux-systemd/caddy.service /lib/systemd/system/
+		# sed -i "s/www-data/root/g" /lib/systemd/system/caddy.service
+		systemctl enable caddy
+	else
+		cp -f ${caddy_tmp}init/linux-sysvinit/caddy /etc/init.d/caddy
+		# sed -i "s/www-data/root/g" /etc/init.d/caddy
+		chmod +x /etc/init.d/caddy
+		update-rc.d -f caddy defaults
+	fi
+
+	mkdir -p /etc/ssl/caddy
+
+	if [ -z "$(grep www-data /etc/passwd)" ]; then
+		useradd -M -s /usr/sbin/nologin www-data
+	fi
+	chown -R www-data.www-data /etc/ssl/caddy
+
+	mkdir -p /etc/caddy/
+	rm -rf $caddy_tmp
 	caddy_config
 
 }
 caddy_config() {
-	# local email=$(shuf -i1-10000000000 -n1)
-	_load caddy-config.sh
+	local email=$(shuf -i1-10000000000 -n1)
+	case $v2ray_transport_opt in
+	4)
+		if [[ $path ]]; then
+			cat >/etc/caddy/Caddyfile <<-EOF
+$domain {
+    tls ${email}@gmail.com
+    gzip
+	timeouts none
+    proxy / $proxy_site {
+        without /${path}
+    }
+    proxy /${path} 127.0.0.1:${v2ray_port} {
+        without /${path}
+        websocket
+    }
+}
+		EOF
+		else
+			cat >/etc/caddy/Caddyfile <<-EOF
+$domain {
+    tls ${email}@gmail.com
+	timeouts none
+	proxy / 127.0.0.1:${v2ray_port} {
+		websocket
+	}
+}
+		EOF
+		fi
+		;;
+	16)
+		if [[ $path ]]; then
+			cat >/etc/caddy/Caddyfile <<-EOF
+$domain {
+    tls ${email}@gmail.com
+    gzip
+	timeouts none
+    proxy / $proxy_site {
+        without /${path}
+    }
+    proxy /${path} https://127.0.0.1:${v2ray_port} {
+        header_upstream Host {host}
+		header_upstream X-Forwarded-Proto {scheme}
+		insecure_skip_verify
+    }
+}
+		EOF
+		else
+			cat >/etc/caddy/Caddyfile <<-EOF
+$domain {
+    tls ${email}@gmail.com
+	timeouts none
+	proxy / https://127.0.0.1:${v2ray_port} {
+        header_upstream Host {host}
+		header_upstream X-Forwarded-Proto {scheme}
+		insecure_skip_verify
+	}
+}
+		EOF
+		fi
+		;;
+
+	esac
 
 	# systemctl restart caddy
 	do_service restart caddy
 }
+
 
 install_v2ray() {
 	$cmd update -y
@@ -740,24 +843,24 @@ install_v2ray() {
 			echo
 			echo -e "$red 哎呀呀...安装失败了咯...$none"
 			echo
-			echo -e " 请确保你有完整的上传 v2ray6.com 的 V2Ray 一键安装脚本 & 管理脚本到当前 ${green}$(pwd) $none目录下"
+			echo -e " 请确保你有完整的上传v2ray管理脚本到当前 ${green}$(pwd) $none目录下"
 			echo
 			exit 1
 		fi
-		mkdir -p /etc/v2ray/233boy/v2ray
-		cp -rf $(pwd)/* /etc/v2ray/233boy/v2ray
+		mkdir -p /etc/v2ray/lighacker/v2ray
+		cp -rf $(pwd)/* /etc/v2ray/lighacker/v2ray
 	else
 		pushd /tmp
 		if [[ $_test ]]; then
-			git clone https://github.com/sinmists/v2ray -b test /etc/v2ray/233boy/v2ray
+			git clone https://github.com/sinmists/v2ray -b test /etc/v2ray/lighacker/v2ray
 		else
-			git clone https://github.com/sinmists/v2ray /etc/v2ray/233boy/v2ray
+			git clone https://github.com/sinmists/v2ray /etc/v2ray/lighacker/v2ray
 		fi
 		popd
 
 	fi
 
-	if [[ ! -d /etc/v2ray/233boy/v2ray ]]; then
+	if [[ ! -d /etc/v2ray/lighacker/v2ray ]]; then
 		echo
 		echo -e "$red 哎呀呀...克隆脚本仓库出错了...$none"
 		echo
@@ -842,8 +945,8 @@ del_port() {
 }
 
 config() {
-	cp -f /etc/v2ray/233boy/v2ray/config/backup.conf $backup
-	cp -f /etc/v2ray/233boy/v2ray/v2ray.sh $_v2ray_sh
+	cp -f /etc/v2ray/lighacker/v2ray/config/backup.conf $backup
+	cp -f /etc/v2ray/lighacker/v2ray/v2ray.sh $_v2ray_sh
 	chmod +x $_v2ray_sh
 
 	v2ray_id=$uuid
@@ -890,18 +993,18 @@ config() {
 }
 
 backup_config() {
-	sed -i "18s/=1/=$v2ray_transport/; 21s/=2333/=$v2ray_port/; 24s/=$old_id/=$uuid/" $backup
+	sed -i "18s/=1/=$v2ray_transport/; 21s/=47226/=$v2ray_port/; 24s/=$old_id/=$uuid/" $backup
 	if [[ $v2ray_transport -ge 18 ]]; then
 		sed -i "30s/=10000/=$v2ray_dynamic_port_start_input/; 33s/=20000/=$v2ray_dynamic_port_end_input/" $backup
 	fi
 	if [[ $shadowsocks ]]; then
-		sed -i "42s/=/=true/; 45s/=6666/=$ssport/; 48s/=233blog.com/=$sspass/; 51s/=chacha20-ietf/=$ssciphers/" $backup
+		sed -i "42s/=/=true/; 45s/=6666/=$ssport/; 48s/=b.lighacker.com/=$sspass/; 51s/=chacha20-ietf/=$ssciphers/" $backup
 	fi
-	[[ $v2ray_transport == [45] ]] && sed -i "36s/=233blog.com/=$domain/" $backup
+	[[ $v2ray_transport == [45] ]] && sed -i "36s/=b.lighacker.com/=$domain/" $backup
 	[[ $caddy ]] && sed -i "39s/=/=true/" $backup
 	[[ $ban_ad ]] && sed -i "54s/=/=true/" $backup
 	if [[ $is_path ]]; then
-		sed -i "57s/=/=true/; 60s/=233blog/=$path/" $backup
+		sed -i "57s/=/=true/; 60s/=lighacker/=$path/" $backup
 		sed -i "63s#=https://liyafly.com#=$proxy_site#" $backup
 	fi
 }
@@ -960,14 +1063,14 @@ show_config_info() {
 }
 
 install() {
-	if [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f $backup && -d /etc/v2ray/233boy/v2ray ]]; then
+	if [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f $backup && -d /etc/v2ray/lighacker/v2ray ]]; then
 		echo
-		echo " 大佬...你已经安装 V2Ray 啦...无需重新安装"
+		echo " 你已经安装 V2Ray 啦...无需重新安装"
 		echo
 		echo -e " $yellow输入 ${cyan}v2ray${none} $yellow即可管理 V2Ray${none}"
 		echo
 		exit 1
-	elif [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f /etc/v2ray/233blog_v2ray_backup.txt && -d /etc/v2ray/233boy/v2ray ]]; then
+	elif [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f /etc/v2ray/lighacker_v2ray_backup.txt && -d /etc/v2ray/lighacker/v2ray ]]; then
 		echo
 		echo "  如果你需要继续安装.. 请先卸载旧版本"
 		echo
@@ -998,7 +1101,7 @@ install() {
 }
 uninstall() {
 
-	if [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f $backup && -d /etc/v2ray/233boy/v2ray ]]; then
+	if [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f $backup && -d /etc/v2ray/lighacker/v2ray ]]; then
 		. $backup
 		if [[ $mark ]]; then
 			_load uninstall.sh
@@ -1008,14 +1111,14 @@ uninstall() {
 			echo
 		fi
 
-	elif [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f /etc/v2ray/233blog_v2ray_backup.txt && -d /etc/v2ray/233boy/v2ray ]]; then
+	elif [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f /etc/v2ray/lighacker_v2ray_backup.txt && -d /etc/v2ray/lighacker/v2ray ]]; then
 		echo
 		echo -e " $yellow输入 ${cyan}v2ray uninstall${none} $yellow即可卸载${none}"
 		echo
 	else
 		echo -e "
-		$red 大胸弟...你貌似毛有安装 V2Ray ....卸载个鸡鸡哦...$none
-		备注...仅支持卸载使用我 (v2ray6.com) 提供的 V2Ray 一键安装脚本
+		$red 你貌似没有安装 V2Ray ....不用卸载了...你真棒...$none
+		备注...仅支持卸载使用我提供的 V2Ray 一键安装脚本
 		" && exit 1
 	fi
 
@@ -1032,9 +1135,9 @@ local)
 	;;
 *)
 	echo
-	echo -e " 你输入的这个参数 <$red $args $none> ...这个是什么鬼啊...脚本不认识它哇"
+	echo -e " 你输入的这个参数 <$red $args $none> 有误"
 	echo
-	echo -e " 这个辣鸡脚本仅支持输入$green local / online $none参数"
+	echo -e " 这个脚本仅支持输入$green local / online $none参数"
 	echo
 	echo -e " 输入$yellow local $none即是使用本地安装"
 	echo
@@ -1047,11 +1150,7 @@ esac
 clear
 while :; do
 	echo
-	echo "........... V2Ray 一键安装脚本 & 管理脚本 by v2ray6.com .........."
-	echo
-	echo "帮助说明: https://v2ray6.com/post/1/"
-	echo
-	echo "搭建教程: https://v2ray6.com/post/2/"
+	echo "........... V2Ray 一键安装脚本 & 管理脚本 by lighacker .........."
 	echo
 	echo " 1. 安装"
 	echo
