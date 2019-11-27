@@ -758,7 +758,7 @@ install_caddy() {
 }
 caddy_config() {
 	local email=$(shuf -i1-10000000000 -n1)
-	case $v2ray_transport_opt in
+	case $v2ray_transport in
 	4)
 		if [[ $path ]]; then
 			cat >/etc/caddy/Caddyfile <<-EOF
